@@ -1,0 +1,25 @@
+{
+  "name": "06-tcp-server",
+  "version": "1.0.0",
+  "description": "## Submission Instructions",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JohnMV13/06-tcp-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JohnMV13/06-tcp-server/issues"
+  },
+  "homepage": "https://github.com/JohnMV13/06-tcp-server#readme",
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "jest": "^23.5.0"
+  }
+}
