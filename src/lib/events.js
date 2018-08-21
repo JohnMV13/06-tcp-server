@@ -11,4 +11,5 @@ class LoggingEventEmitter extends EventEmitter {
 
 module.exports = new LoggingEventEmitter();
 
+// This is stupid, don't actually do it
 module.exports.events2 = new LoggingEventEmitter();

@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "test": "jest"
+    "start": "node .",
+    "test": "jest",
+    "watch": "nodemon ."
   },
   "repository": {
     "type": "git",

@@ -11,39 +11,45 @@ const server = net.createServer();
 
 server.on('connection', function (socket) {
   const user = new User(socket);
-  socketPool.addUser = new User(socket);
-  socket.write(`Your user id is ${user.id}\r\n`);
+  socketPool.addUser(user);
+  socket.write(`Your user ID is ${user.id}!\r\n`);
+
+  socket.line = '';
 
   socket.on('data', function (data) {
     console.log(data);
     socket.line += data.toString();
-    
-    if(!socket.line.endsWith('\r\n'))
+
+    // Not a newline? Wait for more data...
+    if (!socket.line.endsWith('\r\n'))
       return;
 
     console.log(socket.line);
     parser(socket.line, (event, ...args) => {
+      // Emit chat event with current user plus args
       events.emit(event, user, ...args);
+    });
 
     socket.line = '';
-    })
   });
+
+  // TODO: socket.on('error', ...)
+  // TODO: socket.on('close', ...)
 });
 
+exports.startServer = (port) => {
+  server.listen(port, () => {
+    events.emit('start', port);
+  })
+};
 
 
 events.on('start', (portFromStartEvent) => {
   console.log(`Listening on port ${portFromStartEvent}!`);
 });
 
-//This one doesn't recieve start and is separate from the first emitter
-// const events2 = events.events2;
-// events2.on('start', (portFromStartEvent) => {
-//   console.log(`EVENTS2: Listening on port ${portFromStartEvent}!`);
-// });
-
-exports.startServer = (port) => {
-  server.listen(port, () => {
-    events.emit('start', port);
-  });
-};
+// This event emitter is separate, and does not receive start
+const events2 = events.events2;
+events2.on('start', (portFromStartEvent) => {
+  console.log(`EVENTS2: Listening on port ${portFromStartEvent}!`);
+});
